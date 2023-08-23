@@ -12,27 +12,28 @@
          @keydown.space="toggleDropdown"
          @keydown.esc="reset"
          @keydown.tab="reset">
-      <span class="vti__selection">
+      <span class="vti__selection" :class="classes.selection">
           <span
             v-if="dropdownOptions.showFlags"
-            :class="['vti__flag', activeCountryCode.toLowerCase()]"
+            :class="['vti__flag', activeCountryCode.toLowerCase(), classes.flag]"
           ></span>
-      <span v-if="dropdownOptions.showDialCodeInSelection" class="vti__country-code">
+      <span v-if="dropdownOptions.showDialCodeInSelection" class="vti__country-code" :class="classes['country-code']">
             +{{ activeCountry && activeCountry.dialCode }}
           </span>
       <slot name="arrow-icon"
             :open="open">
-        <span class="vti__dropdown-arrow">{{ open ? "▲" : "▼" }}</span>
+        <span class="vti__dropdown-arrow" :class="classes['dropdown-arrow']">{{ open ? "▲" : "▼" }}</span>
       </slot>
       </span>
       <ul v-if="open"
           ref="list"
           class="vti__dropdown-list"
-          :class="dropdownOpenDirection"
+          :class="[dropdownOpenDirection, classes['dropdown-list']]"
           role="listbox">
         <input
             v-if="dropdownOptions.showSearchBox"
             class="vti__input vti__search_box"
+            :class="classes['search-box']"
             aria-label="Search by country name or country code"
             :placeholder="sortedCountries.length ? sortedCountries[0].name : ''"
             type="text"
@@ -41,7 +42,7 @@
         />
         <li v-for="(pb, index) in sortedCountries"
             role="option"
-            :class="['vti__dropdown-item', getItemClass(index, pb.iso2)]"
+            :class="['vti__dropdown-item', getItemClass(index, pb.iso2), classes['dropdown-item']]"
             :key="pb.iso2 + (pb.preferred ? '-preferred' : '')"
             tabindex="-1"
             @click="choose(pb)"
@@ -49,7 +50,7 @@
             :aria-selected="activeCountryCode === pb.iso2 && !pb.preferred">
           <span
               v-if="dropdownOptions.showFlags"
-              :class="['vti__flag', pb.iso2.toLowerCase()]"
+              :class="['vti__flag', pb.iso2.toLowerCase(), classes.flag]"
             ></span>
           <strong>{{ pb.name }}</strong>
           <span v-if="dropdownOptions.showDialCodeInList"> +{{ pb.dialCode }} </span>
@@ -61,7 +62,7 @@
            :type="inputOptions.type"
            :autocomplete="inputOptions.autocomplete"
            :autofocus="inputOptions.autofocus"
-           :class="['vti__input', inputOptions.styleClasses]"
+           :class="['vti__input', inputOptions.styleClasses, classes.input]"
            :disabled="disabled"
            :id="inputOptions.id"
            :maxlength="inputOptions.maxlength"
@@ -179,6 +180,10 @@ export default {
       type: [String, Array, Object],
       default: () => getDefault('styleClasses'),
     },
+    classes: {
+      type: Object,
+      default: () => ({})
+    }
   },
   data() {
     return {
