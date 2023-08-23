@@ -3532,14 +3532,14 @@ const Kt = {
 function qt(e, d, t, n, r, i) {
   const a = Le("click-outside");
   return p(), y("div", {
-    class: h(["vue-tel-input", t.styleClasses, { disabled: t.disabled }])
+    class: h(["vue-tel-input", t.styleClasses, { disabled: t.disabled }, t.classes.wrapper])
   }, [
     R((p(), y("div", {
       "aria-label": "Country Code Selector",
       "aria-haspopup": "listbox",
       "aria-expanded": r.open,
       role: "button",
-      class: h(["vti__dropdown", { open: r.open, disabled: t.dropdownOptions.disabled }]),
+      class: h(["vti__dropdown", { open: r.open, disabled: t.dropdownOptions.disabled }, t.classes.dropdown]),
       tabindex: t.dropdownOptions.tabindex,
       onKeydown: [
         d[2] || (d[2] = (...$) => i.keyboardNav && i.keyboardNav(...$)),
