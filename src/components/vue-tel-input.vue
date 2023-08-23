@@ -1,11 +1,11 @@
 <template>
-  <div :class="['vue-tel-input', styleClasses, { disabled: disabled }]">
+  <div :class="['vue-tel-input', styleClasses, { disabled: disabled }, classes.wrapper]">
     <div v-click-outside="clickedOutside"
          aria-label="Country Code Selector"
          aria-haspopup="listbox"
          :aria-expanded="open"
          role="button"
-         :class="['vti__dropdown', { open: open, disabled: dropdownOptions.disabled }]"
+         :class="['vti__dropdown', { open: open, disabled: dropdownOptions.disabled }, classes.dropdown]"
          :tabindex="dropdownOptions.tabindex"
          @keydown="keyboardNav"
          @click="toggleDropdown"
